@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>TAF UACC</title>
+
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  background: darkblue;
+  color: #ffffff;
+  font-family: "Courier New", monospace;
+  height: 100%;
+}
+
+#taf {
+  padding: 20px;
+  height: 100%;
+  box-sizing: border-box;
+  white-space: normal;
+  line-height: 1.2;
+}
+</style>
+</head>
+
+<body>
+
+<div id="taf">Loading TAF...</div>
+
+<script>
+const ICAO = "UACC";
+const UPDATE_MS = 60000;
+
+function fitText() {
+  const el = document.getElementById("taf");
+  let size = 42;
+  el.style.fontSize = size + "px";
+
+  while (
+    (el.scrollHeight > el.clientHeight ||
+     el.scrollWidth > el.clientWidth) &&
+    size > 14
+  ) {
+    size--;
+    el.style.fontSize = size + "px";
+  }
+}
+
+function loadTaf() {
+  fetch(`https://skyvok.com/api/taf?icao=${ICAO}`)
+    .then(r => r.json())
+    .then(json => {
+      if (json.data && json.data.raw_text) {
+        const el = document.getElementById("taf");
+        el.innerText = json.data.raw_text;
+        fitText();
+      } else {
+        document.getElementById("taf").innerText = "TAF: no data";
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      document.getElementById("taf").innerText = "TAF unavailable";
+    });
+}
+
+loadTaf();
+setInterval(loadTaf, UPDATE_MS);
+</script>
+
+</body>
+</html>
