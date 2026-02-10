@@ -28,7 +28,7 @@ const ICAO = "UACC";
 
 function fitText() {
   const el = document.getElementById("metar");
-  let size = 100;
+  let size = 35;
   el.style.fontSize = size + "px";
   while (el.scrollWidth > el.clientWidth && size > 12) {
     size--;
@@ -51,4 +51,5 @@ setInterval(loadMetar, 60000);
 </script>
 
 </body>
+
 </html>
