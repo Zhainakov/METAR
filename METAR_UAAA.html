@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  background: black;
+  color: #00ff9c;
+  font-family: monospace;
+  height: 100%;
+}
+#metar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  white-space: nowrap;
+}
+</style>
+</head>
+<body>
+
+<div id="metar">Loading METAR...</div>
+
+<script>
+const ICAO = "UAAA";
+
+function fitText() {
+  const el = document.getElementById("metar");
+  let size = 100;
+  el.style.fontSize = size + "px";
+  while (el.scrollWidth > el.clientWidth && size > 12) {
+    size--;
+    el.style.fontSize = size + "px";
+  }
+}
+
+function loadMetar() {
+  fetch(`https://skyvok.com/api/metar?icao=${ICAO}`)
+    .then(r => r.json())
+    .then(j => {
+      el = document.getElementById("metar");
+      el.innerText = j.data[0].raw_text;
+      fitText();
+    });
+}
+
+loadMetar();
+setInterval(loadMetar, 60000);
+</script>
+
+</body>
+</html>
+
