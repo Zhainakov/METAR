@@ -15,7 +15,7 @@ html, body {
 }
 
 #taf {
-  padding: 20px;
+  padding: 6px;
   height: 100%;
   box-sizing: border-box;
   white-space: normal;
@@ -34,13 +34,13 @@ const UPDATE_MS = 60000;
 
 function fitText() {
   const el = document.getElementById("taf");
-  let size = 20;
+  let size = 10;
   el.style.fontSize = size + "px";
 
   while (
     (el.scrollHeight > el.clientHeight ||
      el.scrollWidth > el.clientWidth) &&
-    size > 14
+    size > 10
   ) {
     size--;
     el.style.fontSize = size + "px";
@@ -71,4 +71,5 @@ setInterval(loadTaf, UPDATE_MS);
 
 </body>
 </html>
+
 
