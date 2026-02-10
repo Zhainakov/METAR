@@ -5,10 +5,10 @@
 html, body {
   margin: 0;
   padding: 0;
-  background: blue;
-  color: #00ff9c;
-  font-family: monospace;
-  height: 50%;
+  background: darkblue;
+  color: #FFFFFF;
+  font-family: "courier new";
+  height: 100%;
 }
 #metar {
   display: flex;
@@ -28,7 +28,7 @@ const ICAO = "UAAA";
 
 function fitText() {
   const el = document.getElementById("metar");
-  let size = 100;
+  let size = 35;
   el.style.fontSize = size + "px";
   while (el.scrollWidth > el.clientWidth && size > 12) {
     size--;
@@ -52,5 +52,3 @@ setInterval(loadMetar, 60000);
 
 </body>
 </html>
-
-
